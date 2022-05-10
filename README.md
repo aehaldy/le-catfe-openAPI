@@ -5,3 +5,8 @@ This simple application is trialprototype for testing OpenAPI contracts as a mea
 ## Featuring...
 
 OpenAPI 3.0.2, openapi-generator, and prism in a simple React app with a postgreSQL database and Express server.
+
+### To Run:
+
+Use `npm start` to spin up the react development server.
+Use `npm run watch` to run the Prism mock http server and monitor the openapi.yml for changes.
