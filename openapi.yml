@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: Catfe
+  version: 1.0.0
+  description: Le Catfe API Endpoints
+servers:
+  - url: "http://{domain}:{port}{base_path}"
+    description: "API URL"
+    variables:
+      base_path:
+        enum: [/, /api/v1]
+        default: /
+      domain:
+        enum:
+          - localhost
+        default: localhost
+      port:
+        enum:
+          - '7080'
+        default: '7080'
+tags:
+  - name: api
+  - name: menu_items
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        default:
+          $ref: '#/components/responses/Error'
+  /menu_items:
+    get:
+      description: Get all Menu Items
+      operationId: getAllMenuItems
+      tags:
+        - menu_item
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuItem'
+components:
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  schemas:
+    Errors:
+      type: object
+      required:
+        - code
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        msg:
+          type: string
+        code:
+          type: number
+          format: int64
+    NewMenuItem:
+      type: object
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          maxLength: 200
+          x-faker: commerce.productName
+        description:
+          type: string
+          x-faker: lorem.paragraph
+        price:
+          type: string
+          x-faker: commerce.price
+        image_url:
+          type: string
+          x-faker: 
+            image.food: [640, 480, 'food', true]
+        id:
+          type: string
+          format: uuid
+          x-faker: datatype.uuid
+    MenuItem:
+      type: object
+      required:
+      - title
+      - id
+      allOf:
+      - $ref: '#/components/schemas/NewMenuItem'

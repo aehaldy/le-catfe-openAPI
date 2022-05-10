@@ -25,7 +25,25 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "npm-watch",
+    "prism": "prism mock -d --cors -p 7080 openapi.yml",
+    "openapi": "rm -f src/sdk; mkdir src/sdk; openapi-generator-cli generate -g typescript-axios -i openapi.yml -o src/sdk/ -pwithSeparateModelsAndApi=true,apiPackage=api,modelPackage=models"
+  },
+  "watch": {
+    "openapi": {
+      "patterns": [
+        "openapi.yml",
+        "package.json"
+      ],
+      "inherit": true
+    },
+    "prism": {
+      "patterns": [
+        "openapi.yml"
+      ],
+      "inherit": true
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -44,5 +62,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.1",
+    "@stoplight/prism-cli": "^4.9.2",
+    "npm-watch": "^0.11.0"
   }
 }

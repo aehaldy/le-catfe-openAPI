@@ -21,17 +21,6 @@ declare module '@mui/material/styles' {
             },
           },
     }
-    // allow configuration using `createTheme`
-//     interface ThemeOptions {
-//         palette?: {
-//             primary?: {
-//                 main?: string,
-//             },
-//             secondary?: {
-//                 main?: string
-//             },
-//         },
-//     }
   }
 
   export const theme = createTheme({

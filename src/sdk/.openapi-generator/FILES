@@ -1,0 +1,14 @@
+.gitignore
+.npmignore
+api.ts
+api/default-api.ts
+api/menu-item-api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
+index.ts
+models/errors.ts
+models/index.ts
+models/menu-item.ts
+models/new-menu-item.ts

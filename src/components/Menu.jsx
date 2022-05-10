@@ -1,91 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
+import { getMenuItems } from '../actions';
+import { Typography } from '@mui/material';
 
-const itemData = [
-    {
-      img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-      title: 'Breakfast',
-      author: '@bkristastucchio',
-      rows: 2,
-      cols: 2,
-      featured: true,
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-      title: 'Burger',
-      author: '@rollelflex_graphy726',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-      title: 'Camera',
-      author: '@helloimnik',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-      title: 'Coffee',
-      author: '@nolanissac',
-      cols: 2,
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-      title: 'Hats',
-      author: '@hjrc33',
-      cols: 2,
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-      title: 'Honey',
-      author: '@arwinneil',
-      rows: 2,
-      cols: 2,
-      featured: true,
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-      title: 'Basketball',
-      author: '@tjdragotta',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-      title: 'Fern',
-      author: '@katie_wasserman',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-      title: 'Mushrooms',
-      author: '@silverdalex',
-      rows: 2,
-      cols: 2,
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-      title: 'Tomato basil',
-      author: '@shelleypauls',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-      title: 'Sea star',
-      author: '@peterlaster',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-      title: 'Bike',
-      author: '@southside_customs',
-      cols: 2,
-    },
-  ];
+const menuItemImages = [
+'https://www.incrediblethings.com/wp-content/uploads/2014/11/cat-latte-art-1.jpg',
+'https://img.sndimg.com/food/image/upload/q_92,fl_progressive,w_1200,c_scale/v1/img/recipes/41/09/78/picdYpaDx.jpg',
+'https://teacoffeeanddrinks.com/wp-content/uploads/2021/06/black-coffee-recipe-hot-and-iced-black-coffee-recipe.jpg',
+'https://www.archanaskitchen.com/images/archanaskitchen/beverages/Green_tea_recipe.jpg',
+'https://www.theflavorbender.com/wp-content/uploads/2020/05/French-Croissants-SM-2363.jpg',
+'https://veenaazmanov.com/wp-content/uploads/2021/07/Chocolate-Croissants-Pain-au-Chocolate-9.jpg',
+'https://marigoldcoloradosprings.com/wp-content/uploads/2020/05/coconut-la-raz-square.png'
+]
+
 
 export const Menu = () => {
-    const displayMenuItem = () => {
-        console.log("clicked an item!")
-    }
+    const [menuItems, setMenuItems] = useState([]);
+    const [ selectedItem, setSelectedItem ] = useState({})
+
+    useEffect( () => {
+        getMenuItems().then(data => {
+          if (data) setMenuItems(data)
+        })
+      }, [])
 
     return (
         <div style={{
@@ -93,38 +34,51 @@ export const Menu = () => {
             justifyContent: 'center',
             alignItems: 'center'
         }}>
-            <Paper elevation={1} style={{margin: "20px", padding: "30px", width: "80%"}}>
-            <Grid container>
+            <Paper elevation={1} style={{margin: "10px", padding: "30px", width: "90%"}}>
+            <Grid container wrap={'nowrap'}>
                 <Grid item xs={8}> 
-                    <ImageList sx={{ width: "100%", height: 450 }}>
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img} onClick={displayMenuItem}>
+                    <ImageList sx={{ width: "100%", height: 460 }}>
+                    {menuItems.map((item, i) => (
+                        <ImageListItem key={item.image_url} onClick={() => setSelectedItem(item)}>
                         <img
-                            src={`${item.img}?w=248&fit=crop&auto=format`}
-                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            src={`${menuItemImages?.[i] || item.image_url}?w=248&fit=crop&auto=format`}
                             alt={item.title}
                             loading="lazy"
-                            onClick={displayMenuItem}
-
                         />
                         <ImageListItemBar
                             title={item.title}
-                            subtitle={item.author}
-                            // actionIcon={
-                            // // <IconButton
-                            // //     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                            // //     aria-label={`info about ${item.title}`}
-                            // // >
-                            // //     <InfoIcon />
-                            // // </IconButton>
-                            // }
+                            style={
+                                item.id === selectedItem?.id 
+                                    ? {background: "#a8b4a5", opacity: "0.7"}
+                                    : {background: "black", opacity: "0.7"}
+                            }
                         />
                         </ImageListItem>
                     ))}
                     </ImageList>
                 </Grid>
-                <Grid item>
-                    Display Details here
+                <Grid item container direction={'column'} xs={4} style={{
+                    margin: "32px", 
+                    marginRight: 0,
+                    padding: "20px",
+                    borderRadius: 12,
+                    background: `repeating-linear-gradient(
+                        to right,
+                        #ffd4ea,
+                        #ffd4ea 10px,
+                        #e0c2d5 10px,
+                        #e0c2d5 20px
+                    )`
+                }}>
+                    <Grid item alignSelf={'center'}>
+                        <Typography variant="h5">{selectedItem?.title || ""}</Typography>
+                    </Grid>
+                    <Grid item  alignSelf={'center'}>
+                        <Typography variant="subtitle2" mt={2}>${selectedItem?.price || ""}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="body1" mt={3}>{selectedItem?.description || "Select a menu item."}</Typography>
+                    </Grid>
                 </Grid>
             </Grid>
         </Paper>
