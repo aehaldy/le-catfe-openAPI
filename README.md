@@ -63,9 +63,10 @@ Use `npm run watch` to run the Prism mock http server and monitor the openapi.ym
           enum: [1, 2, 3, 4, 5]
           example: 4
 ```
-6. Save and the SDK will rebuild, so let's test getting the reviews.
+6.  Save and the SDK will rebuild, so let's test getting the reviews!
   - Go to Cats.tsx
-  - Scroll down to the TODO and map in the review data that should now be available on the Cat object:
+  - Scroll down to the first two TODOs and pull each Cat's `rating` into their Rating value displays, available on the Cat object's `.rating` now.
+7. Check that it's working, and then... Scroll down to the last TODO and map in the review data that should now be available on the Cat object:
   ```
   {selectedCat?.reviews?.length && selectedCat.reviews?.map(review => (
                         <Grid item>
@@ -76,4 +77,4 @@ Use `npm run watch` to run the Prism mock http server and monitor the openapi.ym
                         </Grid>
                     ))}
   ```
-  7. Also, pull each Cat's `rating` into their Rating displays, available on `selectedCat.rating` now
+  
