@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { getCats } from '../../actions/cats';
 import { NewCat } from '../../sdk';
 import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box';
 
 const catImages = [
     'https://s36537.pcdn.co/wp-content/uploads/1970/01/GettyImages-1156515296.jpg.optimal.jpg',
@@ -23,19 +24,35 @@ interface SelectedCat {
     name?: string;
     breed?: string;
     pairing?: string;
-    description?: string
+    description?: string;
+    rating?: number;
+    reviews?: Record<string, any>[];
   }
 
 export const Cats = () => {
     const [ catsArray, setCatsArray ] = useState<NewCat[]>([])
     const [ selectedCat, setSelectedCat ] = useState<Partial<SelectedCat>>({});
-    console.log("selectedCat", selectedCat)
+    const [ openReviews, setOpenReviews ] = useState(false);
 
     useEffect( () => {
         getCats().then(data => {
           if (data) setCatsArray(data)
         })
       }, [])
+
+    const selectACat = (cat: SelectedCat) => {
+        setOpenReviews(false);
+        setSelectedCat(cat);
+    }
+
+    const gotToReviews = () => {
+        setOpenReviews(true)
+        window.scrollTo({
+            top: 780,
+            left: 0,
+            behavior: 'smooth'
+          })
+    }
 
     return (
         <Grid container direction="column">
@@ -51,16 +68,25 @@ export const Cats = () => {
                         />
                     </Grid>
                     <Grid item xs={4} container direction="column" justifyContent="space-evenly" style={{marginLeft: "20px"}}>
-                        <Grid item container alignItems={"center"}>
+                        <Grid item container direction="column">
+                            <Grid item container alignItems={"center"}>
+                                <Grid item>
+                                    <Typography gutterBottom variant="h4" component="div">
+                                        {selectedCat.name}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="subtitle1" color="primary" style={{paddingLeft: "14px"}}>
+                                        {selectedCat.breed}
+                                    </Typography>
+                                </Grid>
+                                
+                        </Grid>
                             <Grid item>
-                                <Typography gutterBottom variant="h4" component="div">
-                                    {selectedCat.name}
-                                </Typography>
+                                <Rating name="read-only" value={3} readOnly />
                             </Grid>
                             <Grid item>
-                                <Typography variant="subtitle1" color="secondary" style={{paddingLeft: "14px"}}>
-                                    {selectedCat.breed}
-                                </Typography>
+                                <Button color="secondary" size="small" onClick={gotToReviews}>See Reviews</Button>
                             </Grid>
                         </Grid>
                         <Grid item>
@@ -84,7 +110,7 @@ export const Cats = () => {
                         <Card sx={selectedCat?.imgUrl === cat 
                             ? { maxWidth: 345, marginBottom: 4, border: "3px solid #ee92c2"}
                             : {maxWidth: 345, marginBottom: 4}} 
-                            onClick={() => setSelectedCat({"imgUrl": cat, ...catData})}
+                            onClick={() => selectACat({"imgUrl": cat, ...catData})}
                         >
                         <CardMedia
                         component="img"
@@ -99,11 +125,23 @@ export const Cats = () => {
                         <Typography variant="body2" color="secondary">
                             {catData.breed}
                         </Typography>
-                        <Rating name="read-only" value={3} readOnly />
+                        <Rating name="read-only" value={3} size="small" readOnly />
                         </CardContent>
                     </Card>
                     )
                 })}
+            </Grid>
+            <Grid item>
+                {openReviews && (
+                    <Box sx={{
+                        width: "100%",
+                        backgroundColor: 'background.paper',
+                        padding: "32px",
+                        paddingLeft: "30%",
+                    }}>
+                        {/* TODO map reviews here */}
+                    </Box>
+                )}
             </Grid>
         </Grid>
     )
