@@ -13,8 +13,12 @@
  */
 
 
+import { NewCat } from './new-cat';
 
-export * from './api/cat-api';
-export * from './api/default-api';
-export * from './api/menu-item-api';
+/**
+ * @type Cat
+ * @export
+ */
+export type Cat = NewCat;
+
 

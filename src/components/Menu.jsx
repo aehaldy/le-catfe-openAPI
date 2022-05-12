@@ -61,6 +61,7 @@ export const Menu = () => {
                     margin: "32px", 
                     marginRight: 0,
                     padding: "20px",
+                    border: "2px outset #f5d8c5",
                     borderRadius: 12,
                     background: `repeating-linear-gradient(
                         to right,
@@ -68,13 +69,14 @@ export const Menu = () => {
                         #ffd4ea 10px,
                         #e0c2d5 10px,
                         #e0c2d5 20px
-                    )`
+                    )`,
+                    opacity: "0.7",
                 }}>
                     <Grid item alignSelf={'center'}>
                         <Typography variant="h5">{selectedItem?.title || ""}</Typography>
                     </Grid>
                     <Grid item  alignSelf={'center'}>
-                        <Typography variant="subtitle2" mt={2}>${selectedItem?.price || ""}</Typography>
+                        <Typography variant="subtitle2" mt={2}>{selectedItem?.price  ? "$" + selectedItem.price : ""}</Typography>
                     </Grid>
                     <Grid item>
                         <Typography variant="body1" mt={3}>{selectedItem?.description || "Select a menu item."}</Typography>

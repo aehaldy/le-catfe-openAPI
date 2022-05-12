@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import { CssBaseline } from '@mui/material';
 import { Menu } from './components/Menu';
+import { Cats } from './components/CatsPage/Cats'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -101,16 +102,16 @@ function App() {
         <Menu />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        Events
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        Void
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+        <Cats />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Item Five
+        Sign In
       </TabPanel>
     </ThemeProvider>
   );

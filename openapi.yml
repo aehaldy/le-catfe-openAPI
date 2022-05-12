@@ -49,6 +49,21 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MenuItem'
+  /cats:
+    get:
+      description: Get all Cats
+      operationId: getAllCats
+      tags:
+        - cat
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cat'
 components:
   responses:
     Error:
@@ -101,3 +116,33 @@ components:
       - id
       allOf:
       - $ref: '#/components/schemas/NewMenuItem'
+    NewCat:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 200
+          x-faker: name.firstName
+        description:
+          type: string
+          x-faker: lorem.paragraph
+        breed:
+          type: string
+          x-faker: animal.cat
+        pairing:
+          type: string
+          enum: [ Pumpkin Spice Latte, Royal Milk Tea, Bubble Tea, Sencha Tea, Straight Black Coffee, Choco Cappuccino, Dirty Chai]
+          example: Sencha Tea
+        id:
+          type: string
+          format: uuid
+          x-faker: datatype.uuid
+    Cat:
+      type: object
+      required:
+      - name
+      - id
+      allOf:
+      - $ref: '#/components/schemas/NewCat'
