@@ -7,7 +7,7 @@ export const Review = ({ review }: Record<string, any>) => {
     const { rating, author, title, comment } = review;
 
     return (
-        <Grid container direction="column">
+        <Grid item container direction="column" style={{padding: "20px 0 20px 0"}}>
             <Grid item>
                 <Typography variant="h6" color="primary">{title}</Typography>
             </Grid>
