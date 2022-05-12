@@ -88,6 +88,7 @@ export const Cats = () => {
                                 
                         </Grid>
                             <Grid item>
+                                {/* TODO replace value with selectedCat.rating */}
                                 <Rating name="read-only" value={3} readOnly />
                             </Grid>
                             <Grid item>
@@ -130,6 +131,7 @@ export const Cats = () => {
                         <Typography variant="body2" color="secondary">
                             {catData.breed}
                         </Typography>
+                        {/* TODO replace value with catData.rating */}
                         <Rating name="read-only" value={3} size="small" readOnly />
                         </CardContent>
                     </Card>
