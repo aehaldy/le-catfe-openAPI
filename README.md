@@ -10,3 +10,7 @@ OpenAPI 3.0.2, openapi-generator, and prism in a simple React app with a postgre
 
 Use `npm start` to spin up the react development server.
 Use `npm run watch` to run the Prism mock http server and monitor the openapi.yml for changes.
+
+##  OpenAPI Contract-Driven, Design-First Walkthrough
+ 1. Check out branch `add-reviews-ui`
+ 2. 
