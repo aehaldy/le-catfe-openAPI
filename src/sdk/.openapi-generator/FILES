@@ -15,3 +15,5 @@ models/index.ts
 models/menu-item.ts
 models/new-cat.ts
 models/new-menu-item.ts
+models/new-review.ts
+models/review.ts

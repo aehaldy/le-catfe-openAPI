@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { getCats } from '../../actions/cats';
 import { NewCat } from '../../sdk';
 import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
+import { Review } from './Review';
 
 const catImages = [
     'https://s36537.pcdn.co/wp-content/uploads/1970/01/GettyImages-1156515296.jpg.optimal.jpg',
@@ -40,18 +40,23 @@ export const Cats = () => {
         })
       }, [])
 
+    useEffect(() => {
+        if (openReviews) {
+            window.scrollTo({
+                top: 780,
+                left: 0,
+                behavior: 'smooth'
+              });
+        }
+    }, [openReviews])
+
     const selectACat = (cat: SelectedCat) => {
         setOpenReviews(false);
         setSelectedCat(cat);
     }
 
     const gotToReviews = () => {
-        setOpenReviews(true)
-        window.scrollTo({
-            top: 780,
-            left: 0,
-            behavior: 'smooth'
-          })
+        setOpenReviews(true);
     }
 
     return (
@@ -131,18 +136,21 @@ export const Cats = () => {
                     )
                 })}
             </Grid>
-            <Grid item>
-                {openReviews && (
-                    <Box sx={{
-                        width: "100%",
-                        backgroundColor: 'background.paper',
-                        padding: "32px",
-                        paddingLeft: "30%",
-                    }}>
-                        {/* TODO map reviews here */}
-                    </Box>
-                )}
-            </Grid>
+            {openReviews && (
+                <Grid item container justifyContent={"center"} alignItems="center" direction="column" style={{
+                    backgroundColor: '#f5d8c5',
+                    padding: "32px",
+                }}>
+                    {selectedCat?.reviews?.length && selectedCat.reviews?.map(review => (
+                        <Grid item>
+                            <div style={{width: "600px"}}>
+                                <Review review={review}/>
+                                <hr  />
+                            </div>
+                        </Grid>
+                    ))}
+                </Grid>
+            )}
         </Grid>
     )
 }
