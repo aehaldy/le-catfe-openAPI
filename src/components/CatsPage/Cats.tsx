@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from "@mui/material/Grid";
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -9,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { getCats } from '../../actions/cats';
 import { NewCat } from '../../sdk';
-// import Rating from '@mui/material/Rating';
+import Rating from '@mui/material/Rating';
 
 const catImages = [
     'https://s36537.pcdn.co/wp-content/uploads/1970/01/GettyImages-1156515296.jpg.optimal.jpg',
@@ -100,7 +99,7 @@ export const Cats = () => {
                         <Typography variant="body2" color="secondary">
                             {catData.breed}
                         </Typography>
-                        {/* <Rating name="read-only" value={3} readOnly /> */}
+                        <Rating name="read-only" value={3} readOnly />
                         </CardContent>
                     </Card>
                     )
