@@ -76,3 +76,4 @@ Use `npm run watch` to run the Prism mock http server and monitor the openapi.ym
                         </Grid>
                     ))}
   ```
+  7. Also, pull each Cat's `rating` into their Rating displays, available on `selectedCat.rating` now

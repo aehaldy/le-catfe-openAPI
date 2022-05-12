@@ -88,7 +88,7 @@ export const Cats = () => {
                                 
                         </Grid>
                             <Grid item>
-                                <Rating name="read-only" value={3} readOnly />
+                                <Rating name="read-only" value={selectedCat.rating} readOnly />
                             </Grid>
                             <Grid item>
                                 <Button color="secondary" size="small" onClick={gotToReviews}>See Reviews</Button>
@@ -130,7 +130,7 @@ export const Cats = () => {
                         <Typography variant="body2" color="secondary">
                             {catData.breed}
                         </Typography>
-                        <Rating name="read-only" value={3} size="small" readOnly />
+                        <Rating name="read-only" value={catData.rating} size="small" readOnly />
                         </CardContent>
                     </Card>
                     )
