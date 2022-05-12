@@ -55,7 +55,7 @@ function App() {
       <CssBaseline/>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', 
         bgcolor: '#9d6a89', marginTop: 10, position: 'relative', 
-        paddingTop: "50px", marginBottom: 18}}>
+        paddingTop: "50px", boxShadow: 3, marginBottom: 18}}>
         <div style={{
           position: 'absolute', 
           paddingTop: "1px",
