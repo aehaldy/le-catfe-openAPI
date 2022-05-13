@@ -68,7 +68,7 @@ Use `npm run watch` to run the Prism mock http server and monitor the openapi.ym
           enum: [1, 2, 3, 4, 5]
           example: 4
 ```
-6.  When you save, notive that the SDK will rebuild. So let's see the reviews!
+6.  When you save, notice that the SDK will rebuild. So let's see the reviews!
   - Go to Cats.tsx
   - Scroll down to the first two TODOs and pull each Cat's `rating` into their Rating value displays, available on the Cat object's `.rating` now. Check if the page now shows mock data.
 7. And then, scroll down to the last TODO and map out the review data that should now be available on the Cat object:
@@ -134,4 +134,11 @@ NOTE: Using a mock HTTP server does not actually save anything anywhere. It does
 
 Is all the love for the FE only? --No, it is not. The awesome thing about OpenAPI contracts is that they allow for more rapid development across the stack. Part of that lies with the contract itself--both front-end and back-end know what an API needs to provide. Furthermore, we can generate some useful boilerplate for the backend too!
 
-In a terminal in this project's directory, run `rm -f src/server; mkdir src/server; openapi-generator-cli generate -g nodejs-express-server -i openapi.yml -o /src/server/`
+In a terminal in this project's directory, create a /server directory, cd into it, and run `npx @openapitools/openapi-generator-cli generate -g nodejs-express-server -i ../openapi.yml --global-property=apiTests=true` to generate a server stub. 
+
+A server stub contains no business logic or database coneection (that's up to you). It does, however, generate a server and provide a boilerplate structure for all your API endpoints. 
+
+
+### Documentation
+
+If you want to generate some HTML documentation of your API, you can use https://app.swaggerhub.com -- Just paste your spec in the editor and use the exports tab. SwaggerHub also offers client SDK and server stub generators. 
