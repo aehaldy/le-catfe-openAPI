@@ -10,6 +10,7 @@ import { getCats } from '../../actions/cats';
 import { NewCat } from '../../sdk';
 import Rating from '@mui/material/Rating';
 import { Review } from './Review';
+import NewReviewForm from './NewReviewForm';
 
 const catImages = [
     'https://s36537.pcdn.co/wp-content/uploads/1970/01/GettyImages-1156515296.jpg.optimal.jpg',
@@ -143,6 +144,9 @@ export const Cats = () => {
                     backgroundColor: '#f5d8c5',
                     padding: "32px",
                 }}>
+                    <Grid item>
+                        <NewReviewForm cat={selectedCat?.name} />
+                    </Grid>
                     {/* TODO map Reviews into Review component here */}
                 </Grid>
             )}
