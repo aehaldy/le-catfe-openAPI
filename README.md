@@ -4,7 +4,7 @@ This simple application is trialprototype for testing OpenAPI contracts as a mea
 
 ### Featuring...
 
-OpenAPI 3.0.2, openapi-generator, and prism in a simple React app 
+OpenAPI 3.0.2, openapi-generator-cli (SEE https://openapi-generator.tech/), and Prism mock http server, in a simple React app 
 
 ### To Run:
 
@@ -134,3 +134,4 @@ NOTE: Using a mock HTTP server does not actually save anything anywhere. It does
 
 Is all the love for the FE only? --No, it is not. The awesome thing about OpenAPI contracts is that they allow for more rapid development across the stack. Part of that lies with the contract itself--both front-end and back-end know what an API needs to provide. Furthermore, we can generate some useful boilerplate for the backend too!
 
+In a terminal in this project's directory, run `rm -f src/server; mkdir src/server; openapi-generator-cli generate -g nodejs-express-server -i openapi.yml -o /src/server/`

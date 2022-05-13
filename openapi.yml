@@ -21,6 +21,7 @@ servers:
 tags:
   - name: api
   - name: menu_items
+  - name: cats
 paths:
   /health:
     get:
