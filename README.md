@@ -134,9 +134,9 @@ NOTE: Using a mock HTTP server does not actually save anything anywhere. It does
 
 Is all the love for the FE only? --No, it is not. The awesome thing about OpenAPI contracts is that they allow for more rapid development across the stack. Part of that lies with the contract itself--both front-end and back-end know what an API needs to provide. Furthermore, we can generate some useful boilerplate for the backend too!
 
-In a terminal in this project's directory, run `npx @openapitools/openapi-generator-cli generate -g nodejs-express-server -i openapi.ym` to generate a server stub. 
+In a terminal in this project's directory, run `npx @openapitools/openapi-generator-cli generate -g nodejs-express-server -i ../openapi.yml --global-property=apiTests=true` to generate a server stub. 
 
-A server stub contains no business logic or database coneection (that's up to you). It does, however, generate a server and provide a boilerplate structure for all your API endpoints. It is also possible to have it generate tests!
+A server stub contains no business logic or database coneection (that's up to you). It does, however, generate a server and provide a boilerplate structure for all your API endpoints. 
 
 
 ### Documentation

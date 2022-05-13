@@ -110,8 +110,6 @@ components:
       type: object
       required:
       - title
-      discriminator:
-        propertyName: classType
       properties:
         title:
           type: string
@@ -142,8 +140,6 @@ components:
       type: object
       required:
       - name
-      discriminator:
-        propertyName: classType
       properties:
         name:
           type: string
@@ -185,8 +181,6 @@ components:
       - rating
       - title
       - catId
-      discriminator:
-        propertyName: classType
       properties:
         author:
           type: string
