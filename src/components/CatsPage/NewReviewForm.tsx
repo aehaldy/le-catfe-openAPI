@@ -7,12 +7,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
+import { createCatReview } from '../../actions/cats';
+import { NewReviewRatingEnum } from '../../sdk';
 
-export default function NewReviewForm({ cat }: Record<string, string | undefined>) {
+const user = {
+  userName: "smartKat9000"
+}
+
+export default function NewReviewForm({ cat, uuid }: Record<string, string>) {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState<string | null>(null);
-  const [rating, setRating] = useState<number | null>(null);
-  const [comment, setComment] = useState<string | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [rating, setRating] = useState<NewReviewRatingEnum>(1);
+  const [comment, setComment] = useState<string>("");
 
 
   const handleClickOpen = () => {
@@ -32,7 +38,14 @@ export default function NewReviewForm({ cat }: Record<string, string | undefined
   };
 
   const submitRating = () => {
-    // TODO -- POST data from title, rating, comment under a Username
+    const newReview = {
+      author: user.userName,
+      rating, 
+      title,
+      comment,
+      catId: uuid
+    }
+    createCatReview(newReview);
     handleClose()
   };
 
@@ -61,7 +74,7 @@ export default function NewReviewForm({ cat }: Record<string, string | undefined
                 name="simple-controlled"
                 value={rating}
                 onChange={(event, newValue) => {
-                setRating(newValue);
+                  if (newValue) setRating(newValue as NewReviewRatingEnum);
                 }}
             />
           <TextField

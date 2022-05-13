@@ -10,6 +10,7 @@ import { getCats } from '../../actions/cats';
 import { NewCat } from '../../sdk';
 import Rating from '@mui/material/Rating';
 import { Review } from './Review';
+import NewReviewForm from './NewReviewForm';
 
 const catImages = [
     'https://s36537.pcdn.co/wp-content/uploads/1970/01/GettyImages-1156515296.jpg.optimal.jpg',
@@ -20,6 +21,7 @@ const catImages = [
 ]
 
 interface SelectedCat {
+    id?: string;
     imgUrl?: string;
     name?: string;
     breed?: string;
@@ -33,6 +35,8 @@ export const Cats = () => {
     const [ catsArray, setCatsArray ] = useState<NewCat[]>([])
     const [ selectedCat, setSelectedCat ] = useState<Partial<SelectedCat>>({});
     const [ openReviews, setOpenReviews ] = useState(false);
+
+    console.log("selectedCat", selectedCat)
 
     useEffect( () => {
         getCats().then(data => {
@@ -141,8 +145,11 @@ export const Cats = () => {
                     backgroundColor: '#f5d8c5',
                     padding: "32px",
                 }}>
+                    <Grid item>
+                        <NewReviewForm cat={selectedCat?.name || ""} uuid={selectedCat?.id || ""} />
+                    </Grid>
                     {selectedCat?.reviews?.length && selectedCat.reviews?.map(review => (
-                        <Grid item>
+                        <Grid item key={review.id}>
                             <div style={{width: "600px"}}>
                                 <Review review={review}/>
                                 <hr  />

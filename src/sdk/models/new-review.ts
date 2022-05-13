@@ -49,6 +49,12 @@ export interface NewReview {
      * @type {string}
      * @memberof NewReview
      */
+    'catId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof NewReview
+     */
     'id'?: string;
 }
 

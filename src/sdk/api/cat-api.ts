@@ -22,6 +22,10 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { Cat } from '../models';
+// @ts-ignore
+import { Errors } from '../models';
+// @ts-ignore
+import { NewReview } from '../models';
 /**
  * CatApi - axios parameter creator
  * @export
@@ -57,6 +61,42 @@ export const CatApiAxiosParamCreator = function (configuration?: Configuration) 
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Post review of a Cat
+         * @param {NewReview} newReview 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postCatReview: async (newReview: NewReview, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'newReview' is not null or undefined
+            assertParamExists('postCatReview', 'newReview', newReview)
+            const localVarPath = `/cats/reviews`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(newReview, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -74,6 +114,17 @@ export const CatApiFp = function(configuration?: Configuration) {
          */
         async getAllCats(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cat>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllCats(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Post review of a Cat
+         * @param {NewReview} newReview 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postCatReview(newReview: NewReview, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postCatReview(newReview, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -94,6 +145,16 @@ export const CatApiFactory = function (configuration?: Configuration, basePath?:
         getAllCats(options?: any): AxiosPromise<Array<Cat>> {
             return localVarFp.getAllCats(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Post review of a Cat
+         * @param {NewReview} newReview 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postCatReview(newReview: NewReview, options?: any): AxiosPromise<void> {
+            return localVarFp.postCatReview(newReview, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -112,5 +173,17 @@ export class CatApi extends BaseAPI {
      */
     public getAllCats(options?: AxiosRequestConfig) {
         return CatApiFp(this.configuration).getAllCats(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Post review of a Cat
+     * @param {NewReview} newReview 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CatApi
+     */
+    public postCatReview(newReview: NewReview, options?: AxiosRequestConfig) {
+        return CatApiFp(this.configuration).postCatReview(newReview, options).then((request) => request(this.axios, this.basePath));
     }
 }

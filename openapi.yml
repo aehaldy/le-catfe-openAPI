@@ -49,6 +49,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MenuItem'
+        default:
+          $ref: '#/components/responses/Error'
   /cats:
     get:
       description: Get all Cats
@@ -64,18 +66,25 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Cat'
+        default:
+          $ref: '#/components/responses/Error'
   /cats/reviews:
     post:
       summary: Post review of a Cat
+      operationId: postCatReview
+      tags:
+        - cat
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: ''
+              $ref: '#/components/schemas/NewReview'
       responses:
         '201':
           description: 'Created'
+        default:
+          $ref: '#/components/responses/Error'
 components:
   responses:
     Error:
@@ -172,6 +181,7 @@ components:
       - author
       - rating
       - title
+      - catId
       properties:
         author:
           type: string
@@ -187,6 +197,10 @@ components:
         comment:
           type: string
           x-faker: lorem.paragraph
+        catId:
+          type: string
+          format: uuid
+          x-faker: datatype.uuid
         id:
           type: string
           format: uuid
