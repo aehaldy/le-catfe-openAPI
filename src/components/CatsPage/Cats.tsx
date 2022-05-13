@@ -21,6 +21,7 @@ const catImages = [
 ]
 
 interface SelectedCat {
+    id?: string;
     imgUrl?: string;
     name?: string;
     breed?: string;
@@ -145,7 +146,7 @@ export const Cats = () => {
                     padding: "32px",
                 }}>
                     <Grid item>
-                        <NewReviewForm cat={selectedCat?.name} />
+                        <NewReviewForm cat={selectedCat?.name || ""} uuid={selectedCat?.id || ""} />
                     </Grid>
                     {/* TODO map Reviews into Review component here */}
                 </Grid>

@@ -7,12 +7,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
+// import { NewReviewRatingEnum } from '../../sdk';
 
-export default function NewReviewForm({ cat }: Record<string, string | undefined>) {
+const user = {
+  userName: "smartKat9000"
+}
+
+export default function NewReviewForm({ cat, uuid }: Record<string, string>) {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState<string | null>(null);
-  const [rating, setRating] = useState<number | null>(null);
-  const [comment, setComment] = useState<string | null>(null);
+  const [title, setTitle] = useState<string>("");
+  // TODO Uncomment, as well as import Above
+  // const [rating, setRating] = useState<NewReviewRatingEnum>(1);
+  const [comment, setComment] = useState<string>("");
 
 
   const handleClickOpen = () => {
@@ -59,10 +65,11 @@ export default function NewReviewForm({ cat }: Record<string, string | undefined
             <Rating
                 size='large'
                 name="simple-controlled"
-                value={rating}
-                onChange={(event, newValue) => {
-                setRating(newValue);
-                }}
+                // TODO Uncomment these bits:
+                // value={rating}
+                // onChange={(event, newValue) => {
+                //   if (newValue) setRating(newValue as NewReviewRatingEnum);
+                // }}
             />
           <TextField
             label="Comment"

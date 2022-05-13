@@ -1,11 +1,11 @@
 // Cats API Actions
 import { CatApi } from '../sdk';
-const menuApi = new CatApi();
+const catApi = new CatApi();
 
 // GET all cats
 export const getCats = async () => {
     try {
-        const { data } = await menuApi.getAllCats();
+        const { data } = await catApi.getAllCats();
         return data;
       } catch (e) {
           console.error(e);
