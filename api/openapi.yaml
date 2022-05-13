@@ -1,121 +1,144 @@
 openapi: 3.0.3
 info:
+  description: Le Catfe API Endpoints
   title: Catfe
   version: 1.0.0
-  description: Le Catfe API Endpoints
 servers:
-  - url: "http://{domain}:{port}{base_path}"
-    description: "API URL"
-    variables:
-      base_path:
-        enum: [/, /api/v1]
-        default: /
-      domain:
-        enum:
-          - localhost
-        default: localhost
-      port:
-        enum:
-          - '7080'
-        default: '7080'
+- description: API URL
+  url: http://{domain}:{port}{base_path}
+  variables:
+    base_path:
+      default: /
+      enum:
+      - /
+      - /api/v1
+    domain:
+      default: localhost
+      enum:
+      - localhost
+    port:
+      default: "7080"
+      enum:
+      - "7080"
 tags:
-  - name: api
-  - name: menu_items
+- name: api
+- name: menu_items
 paths:
   /health:
     get:
       operationId: getHealth
       responses:
-        '200':
-          description: 'OK'
+        "200":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+          description: OK
         default:
-          $ref: '#/components/responses/Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Error
+      x-eov-operation-handler: controllers/DefaultController
   /menu_items:
     get:
       description: Get all Menu Items
       operationId: getAllMenuItems
-      tags:
-        - menu_item
       responses:
-        '200':
-          description: 'OK'
+        "200":
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/MenuItem'
+                type: array
+          description: OK
         default:
-          $ref: '#/components/responses/Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Error
+      tags:
+      - menu_item
+      x-eov-operation-handler: controllers/MenuItemController
   /cats:
     get:
       description: Get all Cats
       operationId: getAllCats
-      tags:
-        - cat
       responses:
-        '200':
-          description: 'OK'
+        "200":
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/Cat'
+                type: array
+          description: OK
         default:
-          $ref: '#/components/responses/Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Error
+      tags:
+      - cat
+      x-eov-operation-handler: controllers/CatController
   /cats/reviews:
     post:
-      summary: Post review of a Cat
       operationId: postCatReview
-      tags:
-        - cat
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/NewReview'
+        required: true
       responses:
-        '201':
-          description: 'Created'
+        "201":
+          description: Created
         default:
-          $ref: '#/components/responses/Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Error
+      summary: Post review of a Cat
+      tags:
+      - cat
+      x-eov-operation-handler: controllers/CatController
 components:
   responses:
     Error:
-      description: Error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+      description: Error
   schemas:
     Errors:
-      type: object
-      required:
-        - code
+      example:
+        msg: msg
+        code: 0.8008281904610115
+        timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         timestamp:
-          type: string
           format: date-time
+          type: string
         msg:
           type: string
         code:
           type: number
-    NewMenuItem:
-      type: object
       required:
-      - title
+      - code
+      type: object
+    NewMenuItem:
       discriminator:
         propertyName: classType
       properties:
         title:
-          type: string
           maxLength: 200
+          type: string
           x-faker: commerce.productName
         description:
           type: string
@@ -125,29 +148,33 @@ components:
           x-faker: commerce.price
         image_url:
           type: string
-          x-faker: 
-            image.food: [640, 480, 'food', true]
+          x-faker:
+            image.food:
+            - 640
+            - 480
+            - food
+            - true
         id:
-          type: string
           format: uuid
+          type: string
           x-faker: datatype.uuid
-    MenuItem:
-      type: object
       required:
       - title
-      - id
+      type: object
+    MenuItem:
       allOf:
       - $ref: '#/components/schemas/NewMenuItem'
-    NewCat:
-      type: object
       required:
-      - name
+      - id
+      - title
+      type: object
+    NewCat:
       discriminator:
         propertyName: classType
       properties:
         name:
-          type: string
           maxLength: 200
+          type: string
           x-faker: name.firstName
         description:
           type: string
@@ -156,65 +183,91 @@ components:
           type: string
           x-faker: animal.cat
         pairing:
-          type: string
-          enum: [ Pumpkin Spice Latte, Royal Milk Tea, Bubble Tea, Sencha Tea, Straight Black Coffee, Choco Cappuccino, Dirty Chai]
+          enum:
+          - Pumpkin Spice Latte
+          - Royal Milk Tea
+          - Bubble Tea
+          - Sencha Tea
+          - Straight Black Coffee
+          - Choco Cappuccino
+          - Dirty Chai
           example: Choco Cappuccino
-        reviews:
-          type: array
-          items: 
-            $ref: '#/components/schemas/Review'
-        rating:
-          type: number
-          enum: [1, 2, 3, 4, 5]
-          example: 4
-        id:
           type: string
+        reviews:
+          items:
+            $ref: '#/components/schemas/Review'
+          type: array
+        rating:
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          example: 4
+          type: number
+        id:
           format: uuid
+          type: string
           x-faker: datatype.uuid
-    Cat:
-      type: object
       required:
       - name
-      - id
+      type: object
+    Cat:
       allOf:
       - $ref: '#/components/schemas/NewCat'
-    NewReview:
-      type: object
       required:
-      - author
-      - rating
-      - title
-      - catId
+      - id
+      - name
+      type: object
+    NewReview:
       discriminator:
         propertyName: classType
+      example:
+        catId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        author: author
+        rating: 4
+        comment: comment
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        title: title
       properties:
         author:
           type: string
           x-faker: internet.userName
         rating:
-          type: number
-          enum: [1, 2, 3, 4, 5]
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
           example: 4
+          type: number
         title:
-          type: string
           maxLength: 250
+          type: string
           x-faker: company.catchPhrase
         comment:
           type: string
           x-faker: lorem.paragraph
         catId:
-          type: string
           format: uuid
+          type: string
           x-faker: datatype.uuid
         id:
-          type: string
           format: uuid
+          type: string
           x-faker: datatype.uuid
-    Review:
+      required:
+      - author
+      - catId
+      - rating
+      - title
       type: object
+    Review:
+      allOf:
+      - $ref: '#/components/schemas/NewReview'
       required:
       - author
       - id
-      allOf:
-      - $ref: '#/components/schemas/NewReview'
-      
+      type: object
