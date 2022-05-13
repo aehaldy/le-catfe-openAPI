@@ -13,6 +13,7 @@
  */
 
 
+import { NewReview } from './new-review';
 
 /**
  * 
@@ -46,6 +47,18 @@ export interface NewCat {
     'pairing'?: NewCatPairingEnum;
     /**
      * 
+     * @type {Array<NewReview>}
+     * @memberof NewCat
+     */
+    'reviews'?: Array<NewReview>;
+    /**
+     * 
+     * @type {number}
+     * @memberof NewCat
+     */
+    'rating'?: NewCatRatingEnum;
+    /**
+     * 
      * @type {string}
      * @memberof NewCat
      */
@@ -63,5 +76,14 @@ export const NewCatPairingEnum = {
 } as const;
 
 export type NewCatPairingEnum = typeof NewCatPairingEnum[keyof typeof NewCatPairingEnum];
+export const NewCatRatingEnum = {
+    NUMBER_1: 1,
+    NUMBER_2: 2,
+    NUMBER_3: 3,
+    NUMBER_4: 4,
+    NUMBER_5: 5
+} as const;
+
+export type NewCatRatingEnum = typeof NewCatRatingEnum[keyof typeof NewCatRatingEnum];
 
 

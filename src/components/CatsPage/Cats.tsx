@@ -10,7 +10,6 @@ import { getCats } from '../../actions/cats';
 import { NewCat } from '../../sdk';
 import Rating from '@mui/material/Rating';
 import { Review } from './Review';
-import NewReviewForm from './NewReviewForm';
 
 const catImages = [
     'https://s36537.pcdn.co/wp-content/uploads/1970/01/GettyImages-1156515296.jpg.optimal.jpg',
@@ -89,8 +88,7 @@ export const Cats = () => {
                                 
                         </Grid>
                             <Grid item>
-                                {/* TODO replace value with selectedCat.rating */}
-                                <Rating name="read-only" value={3} readOnly />
+                                <Rating name="read-only" value={selectedCat.rating} readOnly />
                             </Grid>
                             <Grid item>
                                 <Button color="secondary" size="small" onClick={gotToReviews}>See Reviews</Button>
@@ -132,8 +130,7 @@ export const Cats = () => {
                         <Typography variant="body2" color="secondary">
                             {catData.breed}
                         </Typography>
-                        {/* TODO replace value with catData.rating */}
-                        <Rating name="read-only" value={3} size="small" readOnly />
+                        <Rating name="read-only" value={catData.rating} size="small" readOnly />
                         </CardContent>
                     </Card>
                     )
@@ -144,10 +141,14 @@ export const Cats = () => {
                     backgroundColor: '#f5d8c5',
                     padding: "32px",
                 }}>
-                    <Grid item>
-                        <NewReviewForm cat={selectedCat?.name} />
-                    </Grid>
-                    {/* TODO map Reviews into Review component here */}
+                    {selectedCat?.reviews?.length && selectedCat.reviews?.map(review => (
+                        <Grid item>
+                            <div style={{width: "600px"}}>
+                                <Review review={review}/>
+                                <hr  />
+                            </div>
+                        </Grid>
+                    ))}
                 </Grid>
             )}
         </Grid>

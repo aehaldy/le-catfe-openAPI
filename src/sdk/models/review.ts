@@ -13,13 +13,12 @@
  */
 
 
-import { NewCat } from './new-cat';
 import { NewReview } from './new-review';
 
 /**
- * @type Cat
+ * @type Review
  * @export
  */
-export type Cat = NewCat;
+export type Review = NewReview;
 
 

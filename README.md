@@ -13,8 +13,8 @@ Use `npm run watch` to run the Prism mock http server and monitor the openapi.ym
 
 ##  OpenAPI Contract-Driven, Design-First Walkthrough
  1. Check out branch `add-reviews-ui`
- 2. You will find some new helper components have been added to the CatsPage directory, along with some basic logic on the Cats component to display customer reviews.
- 3. Now we'll add schemas to the `openapi.yml` for NewReview (creating a review):
+ 2. A new Reviews component has been added along with some basic logic on the Cats component to display reviews from customers.
+ 3. Add schemas to the `openapi.yml` for NewReview (creating a review):
  ```
     NewReview:
       type: object

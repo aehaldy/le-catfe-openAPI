@@ -146,7 +146,15 @@ components:
         pairing:
           type: string
           enum: [ Pumpkin Spice Latte, Royal Milk Tea, Bubble Tea, Sencha Tea, Straight Black Coffee, Choco Cappuccino, Dirty Chai]
-          example: Sencha Tea
+          example: Choco Cappuccino
+        reviews:
+          type: array
+          items: 
+            $ref: '#/components/schemas/NewReview'
+        rating:
+          type: number
+          enum: [1, 2, 3, 4, 5]
+          example: 4
         id:
           type: string
           format: uuid
@@ -158,3 +166,35 @@ components:
       - id
       allOf:
       - $ref: '#/components/schemas/NewCat'
+    NewReview:
+      type: object
+      required:
+      - author
+      - rating
+      - title
+      properties:
+        author:
+          type: string
+          x-faker: internet.userName
+        rating:
+          type: number
+          enum: [1, 2, 3, 4, 5]
+          example: 4
+        title:
+          type: string
+          maxLength: 250
+          x-faker: company.catchPhrase
+        comment:
+          type: string
+          x-faker: lorem.paragraph
+        id:
+          type: string
+          format: uuid
+          x-faker: datatype.uuid
+    Review:
+      type: object
+      required:
+      - author
+      - id
+      allOf:
+      - $ref: '#/components/schemas/NewReview'
